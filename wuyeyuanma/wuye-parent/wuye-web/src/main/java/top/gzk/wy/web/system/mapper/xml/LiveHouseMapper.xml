@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.gzk.wy.web.system.mapper.LiveHouseMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="top.gzk.wy.web.system.entity.LiveHouse">
+        <id column="live_house_id" property="liveHouseId" />
+        <result column="user_id" property="userId" />
+        <result column="house_id" property="houseId" />
+        <result column="use_status" property="useStatus" />
+        <result column="deleted" property="deleted" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        live_house_id, user_id, house_id, use_status, deleted, create_time, update_time
+    </sql>
+
+</mapper>

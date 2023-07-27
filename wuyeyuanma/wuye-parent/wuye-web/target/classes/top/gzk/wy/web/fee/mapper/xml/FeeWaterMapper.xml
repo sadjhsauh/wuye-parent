@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.gzk.wy.web.fee.mapper.FeeWaterMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="top.gzk.wy.web.fee.entity.FeeWater">
+        <id column="water_id" property="waterId" />
+        <result column="house_id" property="houseId" />
+        <result column="user_id" property="userId" />
+        <result column="pay_water_month" property="payWaterMonth" />
+        <result column="pay_water_money" property="payWaterMoney" />
+        <result column="waterr_num" property="waterrNum" />
+        <result column="pay_water_status" property="payWaterStatus" />
+        <result column="pay_water_time" property="payWaterTime" />
+        <result column="deleted" property="deleted" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        water_id, house_id, user_id, pay_water_month, pay_water_money, waterr_num, pay_water_status, pay_water_time, deleted, create_time, update_time
+    </sql>
+    <select id="getList" resultType="top.gzk.wy.web.fee.entity.FeeWater">
+        select fw.*,lu.username,lu.phone,hl.house_num,hu.unit_name,hb.build_name,hb.build_id,hu.unit_id from
+        fee_water as fw
+        left join live_user as lu on lu.user_id = fw.user_id
+        left join house_list as hl on hl.house_id = fw.house_id
+        left join house_unit as hu on hu.unit_id = hl.unit_id
+        left join house_build as hb on hb.build_id = hu.build_id
+        <where>
+            <if test="username!=null and username!=''">
+                and lu.username like concat('%',#{username},'%')
+            </if>
+            <if test="houseNum!=null and houseNum!=''">
+                and hl.house_num like concat('%',#{houseNum},'%')
+            </if>
+            and fw.deleted=1
+            and lu.deleted=1
+            and hl.deleted=1
+            and hu.deleted=1
+            and hb.deleted=1
+        </where>
+    </select>
+</mapper>
